@@ -28,49 +28,54 @@ namespace finalproject_from_class
             string lastName = Run(Console.ReadLine());
 
             Console.WriteLine($"\n So you are {firstName} {lastName}");
+
+            bool isValid = false;
             int year = 0;
             do
             {
+                Console.WriteLine("When were you born?");
                 try
                 {
-                    Console.WriteLine("When were you born?");
                     year = Convert.ToInt32(Console.ReadLine());
-                    Console.WriteLine(AgeCalculator(year));
-                    break;
                 }
-                catch
+                catch(Exception)
                 {
                     Console.WriteLine("Please enter an actual integer");
-
+                    continue;
                 }
-            } while (year >= 1900 || year <= 2010);
+                if (year <= 1900 || year >= 2010)
+                {
+                    Console.WriteLine("Invalid Input");
+                }
+                else
+                {
+                    Console.WriteLine(AgeCalculator(year));
+                }
+
+                } while (year <= 1900 || year >= 2010);
            
 
-            char gender;
+            
 
-            Console.WriteLine("Pease insert your gender as M/m , F/f or O/o:");
-            gender = Convert.ToChar(Console.ReadLine());
-
-            switch (gender)
-            {
-                case 'M':
-                case 'm':
-                    Console.WriteLine($"{firstName} you are Male");
-                    break;
-                case 'F':
-                case 'f':
-                    Console.WriteLine($"{firstName} you are Female");
-                    break;
-                case 'O':
-                case 'o':
-                    Console.WriteLine($"{firstName} you are Other");
-                    break;
-
-                default:
-                    Console.WriteLine($"{firstName}, please enter out of the choices selected");
-                    break;
-            }
-
+            Console.WriteLine("Pease insert your gender as M , F or O:");
+            
+             char gender = Convert.ToChar(Console.ReadLine().ToLowerInvariant());
+            
+                switch (gender)
+                {
+                    case 'm':
+                        Console.WriteLine($"{firstName} you are Male");
+                        break;
+                    case 'f':
+                        Console.WriteLine($"{firstName} you are Female");
+                        break;
+                    case 'o':
+                        Console.WriteLine($"{firstName} you are Other");
+                        break;
+                    default:
+                        Console.WriteLine($"{firstName}, please enter out of the choices selected");
+                        break;
+                }
 
             List<string> response = new List<string>();
 
@@ -150,14 +155,7 @@ namespace finalproject_from_class
         /// <param name="year"></param>
         /// <returns></returns>
         static int AgeCalculator(int year)
-        {
-            if (year != 0)
-            {
-                Console.WriteLine("Please choose a realistic year.");
-                year = Convert.ToInt32(Console.ReadLine());
-                Console.WriteLine(AgeCalculator(year));
-            }
-         
+        {  
            // Console.WriteLine($"Your age is: {AgeCalculator(year)}");
             return DateTime.Now.Year - year;
         }
